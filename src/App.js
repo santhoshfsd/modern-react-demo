@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import SeasonDisplay from "./SeasonDisplay";
 
 class App extends Component {
   constructor(props) {
@@ -7,6 +8,10 @@ class App extends Component {
       latitude: null,
       errorMessage: "",
     };
+  }
+
+  componentDidMount() {
+    console.log("did-mount");
     window.navigator.geolocation.getCurrentPosition(
       (position) => this.setLatitude(position),
       (err) => this.setErr(err)
@@ -22,6 +27,8 @@ class App extends Component {
   };
 
   render() {
+    console.log("render");
+
     if (this.state.errorMessage && !this.state.latitude) {
       console.log("error");
       return <div>Error : {this.state.errorMessage}</div>;
@@ -29,7 +36,7 @@ class App extends Component {
 
     if (!this.state.errorMessage && this.state.latitude) {
       console.log("sucess");
-      return <div> Latitude : {this.state.latitude}</div>;
+      return <SeasonDisplay lat={this.state.latitude} />;
     }
 
     return <div>Loading !!!! </div>;
