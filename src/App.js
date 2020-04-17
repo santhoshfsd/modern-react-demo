@@ -1,19 +1,38 @@
-import React from "react";
-import CommentDetails from "./CommentDetail";
-import ApprovalCard from "./ApprovalCard";
-import faker from "faker";
-const App = () => {
-  return (
-    <div className="ui container comments">
-      <ApprovalCard>
-        <CommentDetails name="Sam" imageUrl={faker.image.avatar} />
-      </ApprovalCard>
+import React, { Component } from "react";
 
-      <ApprovalCard>
-        <CommentDetails name={"Ram"} imageUrl={faker.image.avatar} />
-      </ApprovalCard>
-    </div>
-  );
-};
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      latitude: null,
+      errorMessage: "",
+    };
+    window.navigator.geolocation.getCurrentPosition(
+      (position) => this.setLatitude(position),
+      (err) => this.setErr(err)
+    );
+  }
 
+  setErr = (error) => {
+    this.setState({ errorMessage: error.message });
+  };
+
+  setLatitude = (position) => {
+    this.setState({ latitude: position.coords.latitude });
+  };
+
+  render() {
+    if (this.state.errorMessage && !this.state.latitude) {
+      console.log("error");
+      return <div>Error : {this.state.errorMessage}</div>;
+    }
+
+    if (!this.state.errorMessage && this.state.latitude) {
+      console.log("sucess");
+      return <div> Latitude : {this.state.latitude}</div>;
+    }
+
+    return <div>Loading !!!! </div>;
+  }
+}
 export default App;
