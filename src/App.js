@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SeasonDisplay from "./SeasonDisplay";
+import Loader from "./Loader";
 
 class App extends Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class App extends Component {
       return <SeasonDisplay lat={this.state.latitude} />;
     }
 
-    return <div>Loading !!!! </div>;
+    return <Loader messages="Please Accept Location Request" />;
   }
 }
 export default App;
