@@ -1,19 +1,17 @@
 import React from "react";
-import CommentDetails from "./CommentDetail";
-import ApprovalCard from "./ApprovalCard";
-import faker from "faker";
-const App = () => {
-  return (
-    <div className="ui container comments">
-      <ApprovalCard>
-        <CommentDetails name="Sam" imageUrl={faker.image.avatar} />
-      </ApprovalCard>
+import SearchBar from "./Component/SearchBar";
 
-      <ApprovalCard>
-        <CommentDetails name={"Ram"} imageUrl={faker.image.avatar} />
-      </ApprovalCard>
-    </div>
-  );
-};
+class App extends React.Component {
+  onSubmitSearch(term) {
+    console.log(term);
+  }
+  render() {
+    return (
+      <div className="ui container" style={{ marginTop: "10px" }}>
+        <SearchBar onSearchSubmit={this.onSubmitSearch} />
+      </div>
+    );
+  }
+}
 
 export default App;
